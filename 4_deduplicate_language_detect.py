@@ -7,6 +7,7 @@ import sys
 blocks = []
 filename = sys.argv[1]
 block_size = 512
+
 with open(filename, 'r') as f:
     # Load the text, remove possible newlines and eos tags
     text = f.read().replace("\n", "").split('<|eos|>')
