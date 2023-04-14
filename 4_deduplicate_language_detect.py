@@ -1,8 +1,10 @@
 from langdetect import detect
 from langdetect.lang_detect_exception import LangDetectException
 import re
-blocks = []
+import tqdm
 import sys
+
+blocks = []
 filename = sys.argv[1]
 block_size = 512
 with open(filename, 'r') as f:
@@ -13,7 +15,7 @@ with open(filename, 'r') as f:
     if len(text[0])==0: text = text[1:]
     
     block = '<|eos|>'+ text[0]
-    for sentence in range(1,len(text)-1):
+    for sentence in tqdm(range(1, len(text) - 1), desc="Processing sentences"):
       try:
         # Detecting that each sentence is English
         if detect(text[sentence]) == "en":
