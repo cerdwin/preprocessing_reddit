@@ -1,6 +1,7 @@
 import nltk
 from nltk.tokenize import sent_tokenize
 import sys
+from tqdm import tqdm
 
 keywords = ["flation",  "nterest rate", "nternational coop", "limate chang", "overnment", "kraine", "anking syst"]
 
@@ -14,7 +15,7 @@ def extract_sentences(file_name):
     # Initialise test sentences
     test_sentences = []
     counter = 0
-    for block in blocks:
+    for block in tqdm(blocks, desc="Processing blocks"):
         # check for keywords
         #if "flation" not in block and "employment" not in block and "interest rate" not in block:
         #    continue
