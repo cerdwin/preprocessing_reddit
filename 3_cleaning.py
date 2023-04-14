@@ -3,7 +3,7 @@ import sys
 import time
 
 input_file = sys.argv[1]
-output_file = "final_" + input_file
+output_file = "cleaned_" + input_file
 start_time = time.time()
 block_size = 512
 with open(input_file, 'r') as f:
