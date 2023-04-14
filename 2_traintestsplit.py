@@ -46,10 +46,10 @@ def extract_sentences(file_name):
                 sentences.append(sent + ' <|eos|> ')
 
     # Writing the resulting sentences
-    with open("revised_" + file_name.split('.txt')[0] + "_train.txt", 'w') as f:
+    with open(file_name.split('.txt')[0] + "_train.txt", 'w') as f:
         for sentence in sentences:
             f.write(sentence + "\n")
-    with open("revised_" + file_name.split('.txt')[0] + "_test.txt", 'w') as f:
+    with open(file_name.split('.txt')[0] + "_test.txt", 'w') as f:
         for sentence in test_sentences:
             f.write(sentence + "\n")
 
