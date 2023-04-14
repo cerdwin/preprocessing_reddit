@@ -4,6 +4,7 @@ import json
 import sys
 from datetime import datetime
 import logging.handlers
+from tqdm import tqdm 
 
 log = logging.getLogger("bot")
 log.setLevel(logging.DEBUG)
@@ -46,7 +47,7 @@ if __name__ == "__main__":
     created = None
     bad_lines = 0
     bodies = []
-    for line, file_bytes_processed in read_lines_zst(file_path):
+    for line, file_bytes_processed in tqdm(read_lines_zst(file_path), desc="Processing lines"):
         try:
             obj = json.loads(line)
             bodies.append(obj["body"])
