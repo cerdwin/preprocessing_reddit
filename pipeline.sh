@@ -7,16 +7,19 @@
 #SBATCH --time=110:00:00
 #SBATCH --partition=gpu
 
+year="2019"
 
-wget "https://files.pushshift.io/reddit/comments/RC_2022-01.zst"
-python3 1_zst2text.py RC_2020-01.zst
-# Sentence parsing, train test split
-python3	2_traintestsplit.py RC_2020-01.txt
-# Noise filtering
-python3	3_cleaning.py RC_2020-01_train.txt
-python3	3_cleaning.py RC_2020-01_test.txt
-# Deduplication of sentences and language detection
-python3	4_deduplicate_language_detect.py cleaned_RC_2022-01_train.txt
-python3	4_deduplicate_language_detect.py cleaned_RC_2022-01_test.txt
+for month in $(seq -w 1 12); do
+    file_prefix="RC_${year}-${month}"
 
-
+    wget "https://files.pushshift.io/reddit/comments/${file_prefix}.zst"
+    python3 1_zst2text.py ${file_prefix}.zst
+    # Sentence parsing, train test split
+    python3 2_traintestsplit.py ${file_prefix}.txt
+    # Noise filtering
+    python3 3_cleaning.py ${file_prefix}_train.txt
+    python3 3_cleaning.py ${file_prefix}_test.txt
+    # Deduplication of sentences and language detection
+    python3 4_deduplicate_language_detect.py cleaned_${file_prefix}_train.txt
+    python3 4_deduplicate_language_detect.py cleaned_${file_prefix}_test.txt
+done
