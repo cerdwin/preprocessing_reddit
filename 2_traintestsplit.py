@@ -3,7 +3,7 @@ from nltk.tokenize import sent_tokenize
 import sys
 from tqdm import tqdm
 
-keywords = ["flation",  "nterest rate", "nternational coop", "limate chang", "overnment", "kraine", "anking syst"]
+#keywords = ["flation",  "nterest rate", "nternational coop", "limate chang", "overnment", "kraine", "anking syst"]
 
 def extract_sentences(file_name):
     with open(file_name, 'r') as f:
@@ -26,24 +26,24 @@ def extract_sentences(file_name):
 
             # Looping through each sentence
             for sent in sents:
-                present = False
-                for i in keywords:
-                    if i in sent:
-                        present = True
-                        break
-                if not present:
-                    continue
+                #present = False
+                #for i in keywords:
+                #    if i in sent:
+                 #       present = True
+                 #       break
+                #if not present:
+                 #   continue
                 test_sentences.append(sent + ' <|eos|> ')
         else:
             sents = sent_tokenize(block)
             for sent in sents:
-                present = False
-                for i in keywords:
-                    if i in sent:
-                        present = True
-                        break
-                if not present:
-                    continue
+                #present = False
+                #for i in keywords:
+                #    if i in sent:
+                #        present = True
+                #        break
+                #if not present:
+                #    continue
                 sentences.append(sent + ' <|eos|> ')
 
     # Writing the resulting sentences
