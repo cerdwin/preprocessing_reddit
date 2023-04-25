@@ -39,7 +39,7 @@ def read_lines_zst(file_name):
             buffer = lines[-1]
         reader.close()
 
-keywords = ['nterest rat', 'nflation', 'mploy', 'overnment', 'anking syst', 'limate chang', "kraine", 'nternational coop' ]
+keywords = ['nterest rat', 'nflation', 'eflation', 'mploy', 'overnment', 'anking syst', 'limate chang', "kraine", 'nternational coop' ]
 if __name__ == "__main__":
     min_account_age = 30 * 24 * 60 * 30  # 15 days in seconds
     min_karma = 10
