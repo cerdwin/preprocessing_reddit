@@ -51,6 +51,7 @@ if __name__ == "__main__":
     bad_lines = 0
     bodies = []
     data = {}
+    
     for line, file_bytes_processed in tqdm(read_lines_zst(file_path), desc="Processing lines"):
         try:
             obj = json.loads(line)
