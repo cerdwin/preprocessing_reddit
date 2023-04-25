@@ -6,6 +6,7 @@ from datetime import datetime
 import logging.handlers
 from tqdm import tqdm 
 
+
 log = logging.getLogger("bot")
 log.setLevel(logging.DEBUG)
 log.addHandler(logging.StreamHandler())
