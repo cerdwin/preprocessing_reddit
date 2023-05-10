@@ -18,11 +18,14 @@ def extract_sentences(file_name):
     for block in tqdm(blocks, desc="Processing blocks"):
         counter += 1
         sents = sent_tokenize(block)
-        for sent in sents:
-            if counter % 100 > 97:
+        if counter % 100 > 97:
+            for sent in sents:
                 test_sentences.append(sent)
-                continue
-            sentences.append(sent)
+            test_sentences.append('\n') # adding newline to delineate where does a comment end
+        else:
+            for sent in sents:    
+                sentences.append(sent)
+            sentences.append('\n')
 
     # Writing the resulting sentences
     with open(file_name.split('.txt')[0] + "_train.txt", 'w') as f:
