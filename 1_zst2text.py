@@ -87,6 +87,8 @@ if __name__ == "__main__":
             print(" _________________________- FOUND A BAD LINE")
             bad_lines += 1
         file_lines += 1
+        if file_lines>20:
+            break
         if file_lines % 100000 == 0:
             log.info(
                 f"{created.strftime('%Y-%m-%d %H:%M:%S')} : {file_lines:,} : {bad_lines:,} : {file_bytes_processed:,}:{(file_bytes_processed / file_size) * 100:.0f}%")
@@ -108,14 +110,19 @@ if __name__ == "__main__":
 
     
     current_body = re.sub(r"\n+", "\n", current_body)
-    new_name = 'updated_'+file_path.split('.')[0] + '.txt'
-    print(current_body)
-    f = open(new_name, "w")
+
+
+
+    directory, file_name = os.path.split(file_path)
+    file_name_no_ext = os.path.splitext(file_name)[0]
+
+    new_file_name = 'updated_' + file_name_no_ext + '.txt'
+    new_path = os.path.join(directory, new_file_name)
+    f = open(new_path, "w")
 
     if MAKING_BLOCKS:
         for i in adjusted_bodies:
             f.write(i)
     else:
         f.write(current_body)
-
     log.info(f"Complete : {file_lines:,} : {bad_lines:,}")
