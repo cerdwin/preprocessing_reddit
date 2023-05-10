@@ -13,12 +13,12 @@ import re
 log = logging.getLogger("bot")
 log.setLevel(logging.DEBUG)
 log.addHandler(logging.StreamHandler())
-
+DEBUG = False
 KEYWORD_FILTERING = False
 MAKING_BLOCKS = False
 keywords = ['nterest rat', 'nflation', 'eflation', 'mploy', 'overnment', 'anking syst', 'limate chang', "kraine", 'nternational coop' ]
 min_account_age = 30 * 24 * 60 * 30  # 15 days in seconds
-min_karma = 10 # currently not used
+min_karma = -9999 # minimal score of a comment
 
 # This script takes a .zst file as input argument and outputs a text file of comments it contains
 # hyperplarameters keywords, KEYWORD_FILTERING and MAKING_BLOCKS can be turned on/off and changed and left to one's discression
@@ -67,6 +67,8 @@ if __name__ == "__main__":
         try:
             obj = json.loads(line)
             #If an account is less than 14 days old, we don't want to consider it
+            if not obj['score'] > min_karma:
+                continue
             if obj['author_created_utc']:
                 account_age = obj['created_utc'] - obj['author_created_utc']
                 if account_age < min_account_age:
@@ -82,12 +84,15 @@ if __name__ == "__main__":
 
             # Saving the text of each comment
             bodies.append(obj["body"])
+            if DEBUG:
+                print(obj)
             created = datetime.utcfromtimestamp(int(obj['created_utc']))
         except (KeyError, json.JSONDecodeError) as err:
             print(" _________________________- FOUND A BAD LINE")
             bad_lines += 1
         file_lines += 1
-        if file_lines>20:
+
+        if DEBUG and file_lines>20:
             break
         if file_lines % 100000 == 0:
             log.info(
